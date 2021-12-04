@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/courses", (request, response) => {
+app.get("/", (request, response) => {
   return response.json({
     message: "Hello Ignite",
   });
