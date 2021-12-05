@@ -99,6 +99,25 @@ app.post("/withdraw", verifyIfExistsAccountWithCPF, (request, response) => {
   return response.status(201).send();
 });
 
+app.get(
+  "/statement/date",
+  verifyIfExistsAccountWithCPF,
+  (request, response) => {
+    const { customer } = request;
+    const { date } = request.query;
+
+    const formattedDate = new Date(date + " 00:00");
+
+    const statement = customer.statement.filter(
+      (statement) =>
+        statement.createdAt.toDateString() ===
+        new Date(formattedDate).toDateString()
+    );
+
+    return response.json(statement);
+  }
+);
+
 const port = 3333;
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
