@@ -49,13 +49,21 @@ app.get("/statement", verifyIfExistsAccountWithCPF, (request, response) => {
   return response.json(customer.statement);
 });
 
-  const customer = customers.find(customer => customer.cpf === cpf);
+app.post("/deposit", verifyIfExistsAccountWithCPF, (request, response) => {
+  const { description, amount } = request.body;
 
-  if (!customer) {
-    return response.status(400).json({ error: "Customer not found." });
+  const { customer } = request;
+
+  const statementOperation = {
+    description,
+    amount,
+    createdAt: new Date(),
+    type: "credit",
   }
 
-  return response.json(customer.statement);
+  customer.statement.push(statementOperation);
+
+  return response.status(201).send();
 });
 
 const port = 3333;
