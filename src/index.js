@@ -59,6 +59,13 @@ app.post("/deposit", verifyIfExistsAccountWithCPF, (request, response) => {
     amount,
     createdAt: new Date(),
     type: "credit",
+  };
+
+  customer.statement.push(statementOperation);
+
+  return response.status(201).send();
+});
+
   }
 
   customer.statement.push(statementOperation);
