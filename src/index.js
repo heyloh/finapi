@@ -149,6 +149,10 @@ app.get("/balance", verifyIfExistsAccountWithCPF, (request, response) => {
   return response.json(balance);
 });
 
+app.get("/customers", (request, response) => {
+  return response.json(customers);
+});
+
 const port = 3333;
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
