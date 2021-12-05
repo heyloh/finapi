@@ -118,6 +118,21 @@ app.get(
   }
 );
 
+app.put("/account", verifyIfExistsAccountWithCPF, (request, response) => {
+  const { name } = request.body;
+  const { customer } = request;
+
+  customer.name = name;
+
+  return response.status(201).send();
+});
+
+app.get("/account", verifyIfExistsAccountWithCPF, (request, response) => {
+  const { customer } = request;
+
+  return response.json(customer);
+});
+
 const port = 3333;
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
