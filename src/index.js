@@ -43,8 +43,11 @@ app.post("/account", (request, response) => {
   return response.status(201).send();
 });
 
-app.get("/statement", (request, response) => {
-  const { cpf } = request.headers;
+app.get("/statement", verifyIfExistsAccountWithCPF, (request, response) => {
+  const { customer } = request;
+
+  return response.json(customer.statement);
+});
 
   const customer = customers.find(customer => customer.cpf === cpf);
 
